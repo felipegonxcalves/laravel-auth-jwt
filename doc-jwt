@@ -1,0 +1,22 @@
+Para instalar a biblioteca JWT no Laravel via composer utilizamos o seguinte comando:
+* composer require tymon/jwt-auth
+
+* Depois é preciso ir em config/auth.php e mudar lá em api de token para jwt.
+
+* Gerando primeiro token JWT
+    A biblioteca vai precisar que no Model do User, nós implementarmos uma interface chamada de JWTSubject, com isso
+    precisaremos implementar 2 métodos dentro do model User, que são os métodos getJWTIdentifier e getJWTCustomClaims,
+    onde o getJWTIdentifier é para pegar o identificador único do usuário que é o id e getJWTCustomClaims é para passar
+    informações costumizadas no payload
+
+    depois precisaremos rodar um comando para gerar nossa chave:
+    php artisan jwt:secret
+
+    Gerando Token para usuário :
+    \JWTAuth:attempt(['email' => 'admin@user.com', 'password' => '']);
+
+
+* Criando endpoint para login de usuário
+    Primeiro vamos criar um Controller para fazer a autenticação e utilizar a trait que já é utilizada no login controller:
+    php artisan make:controller Api\AuthController
+
